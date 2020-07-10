@@ -1,4 +1,5 @@
-![Tests](https://github.com/FabLabMons/serial2edge/workflows/Platform.io%20firmware/badge.svg)
+![Build mkrgsm1400](https://github.com/FabLabMons/serial2edge/workflows/Build%20mkrgsm1400/badge.svg)
+![Unit tests](https://github.com/FabLabMons/serial2edge/workflows/Unit%20tests/badge.svg)
 
 # serial2edge
 
