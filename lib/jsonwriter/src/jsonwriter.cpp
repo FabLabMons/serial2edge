@@ -1,0 +1,96 @@
+/*
+ * Copyright (c) 2020 UMONS Fab-IoT-Lab
+ *
+ * serial2edge - UMONS Fab-IoT-Lab (ROLAND Francois) is free software: you can
+ * redistribute it and/or modify it under the terms of the MIT License.  This
+ * program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.  See the MIT License for more details.
+ *
+ * You should have received a copy of the MIT License along with this program.  If
+ * not, see https://spdx.org/licenses/MIT.html. Each use of this software must be
+ * attributed to University of MONS - Fab-IoT-Lab (ROLAND Francois).
+ */
+
+#define TRUE "true"
+#define FALSE "false"
+
+#include "jsonwriter.h"
+
+#include <cstddef>
+#include <cstdio>
+#include <cstring>
+
+namespace jsonwriter {
+
+WriterOutput Writer::Write(unsigned long time, Dimension* dimensions, std::size_t nb_dimensions) {
+  _output.buffer[0] = '\0';
+  _output.length = 0;
+  OpenObject();
+  WriteULong("time", time);
+  NextAttribute();
+  WriteCharArray("sensor_id", "coupole_profile");
+  NextAttribute();
+  OpenNestedObject("dimensions");
+  for (unsigned int i = 0; i < nb_dimensions; i++) {
+    Dimension dimension = dimensions[i];
+    OpenNestedObject(dimension.name);
+    WriteFloat("value", dimension.value);
+    NextAttribute();
+    WriteBool("valid", dimension.valid);
+    CloseObject();
+    if (i < nb_dimensions - 1) {
+      NextAttribute();
+    }
+  }
+  CloseObject();
+  CloseObject();
+  return _output;
+}
+
+void Writer::OpenObject() {
+  strcat(_output.buffer, "{");
+  _output.length++;
+}
+
+void Writer::OpenNestedObject(const char* name) {
+  char* target = _output.buffer + _output.length;
+  std::size_t actual_size = sprintf(target, "\"%s\":{", name);
+  _output.length += actual_size;
+}
+
+void Writer::CloseObject() {
+  strcat(_output.buffer, "}");
+  _output.length++;
+}
+
+void Writer::NextAttribute() {
+  strcat(_output.buffer, ",");
+  _output.length++;
+}
+
+void Writer::WriteBool(const char* name, bool value) {
+  char* target = _output.buffer + _output.length;
+  std::size_t actual_size = sprintf(target, "\"%s\":%s", name, (value ? TRUE : FALSE));
+  _output.length += actual_size;
+}
+
+void Writer::WriteCharArray(const char* name, const char* value) {
+  char* target = _output.buffer + _output.length;
+  std::size_t actual_size = sprintf(target, "\"%s\":\"%s\"", name, value);
+  _output.length += actual_size;
+}
+
+void Writer::WriteFloat(const char* name, float value) {
+  char* target = _output.buffer + _output.length;
+  std::size_t actual_size = sprintf(target, "\"%s\":%.3f", name, value);
+  _output.length += actual_size;
+}
+
+void Writer::WriteULong(const char* name, unsigned long value) {
+  char* target = _output.buffer + _output.length;
+  std::size_t actual_size = sprintf(target, "\"%s\":%lu", name, value);
+  _output.length += actual_size;
+}
+
+} // namespace jsonwriter
