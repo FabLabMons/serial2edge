@@ -36,9 +36,6 @@ jobs:
     - name: Build
       run: |
         platformio run --environment mkrgsm1400
-    - name: Test
-      run: |
-        platformio test --environment native
 
   test:
 
