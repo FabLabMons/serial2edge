@@ -1,0 +1,41 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python application
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 2.7
+      uses: actions/setup-python@v2
+      with:
+        python-version: 2.7
+    - name: Cache platform.io dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.platformio
+        key: pio-cache
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -U platformio
+        platformio update
+    - name: Setup configuration files
+      run: |
+        cp include/arduino_secrets.h.template include/arduino_secrets.h
+    - name: Build
+      run: |
+        platformio run --environment mkrgsm1400
+    - name: Test
+      run: |
+        platformio test --environment native
