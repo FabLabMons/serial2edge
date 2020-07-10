@@ -1,3 +1,5 @@
+![Tests](https://github.com/FabLabMons/serial2edge/workflows/Platform.io%20firmware/badge.svg)
+
 # serial2edge
 
 serial2edge is an embedded software running an IoT gateway that queries a Keyence profilometer, filters the relevant data, formats them into JSON and sends them to an HTTPS server.
