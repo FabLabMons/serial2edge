@@ -1,15 +1,20 @@
 /*
  * Copyright (c) 2020 UMONS Fab-IoT-Lab
  *
- * serial2edge - UMONS Fab-IoT-Lab (ROLAND Francois) is free software: you can
- * redistribute it and/or modify it under the terms of the MIT License.  This
- * program is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE.  See the MIT License for more details.
+ * This file is part of serial2edge.
  *
- * You should have received a copy of the MIT License along with this program.  If
- * not, see https://spdx.org/licenses/MIT.html. Each use of this software must be
- * attributed to University of MONS - Fab-IoT-Lab (ROLAND Francois).
+ *    serial2edge is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    serial2edge is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY * without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Lesser General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Lesser General Public License
+ *    along with serial2edge.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include <iostream>
